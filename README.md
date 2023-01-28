@@ -146,3 +146,7 @@ Helper scripts can be found [here](https://github.com/fichub-cli-contrib/helper-
 - [Github Wiki](https://github.com/FicHub/fichub-cli/wiki/)
 - [Github Plugins Repo](https://github.com/fichub-cli-contrib/)
 - [Official Discord Server](https://discord.gg/sByBAhX)
+
+# Bundling with pyinstaller
+`pip install -U pyinstaller`
+`pyinstaller fichub-cli.py`
