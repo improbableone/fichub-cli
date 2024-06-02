@@ -13,19 +13,21 @@
 # limitations under the License.
 
 import typer
+import sys
 from tqdm import tqdm
 from colorama import Fore
 from loguru import logger
 import traceback
+from platformdirs import PlatformDirs
 
 from .fichub import FicHub
 from .logging import init_log, download_processing_log, \
     verbose_log
-from .processing import check_url, save_data, \
+from .processing import check_url, output_log_cleanup, save_data, \
     urls_preprocessing, build_changelog
 
 bar_format = "{l_bar}{bar}| {n_fmt}/{total_fmt}, {rate_fmt}{postfix}, ETA: {remaining}"
-
+app_dirs = PlatformDirs("fichub_cli", "fichub")
 
 class FetchData:
     def __init__(self, format_type=[0], out_dir="", force=False,
@@ -128,7 +130,8 @@ class FetchData:
                            "No new urls found! If output.log exists, please clear it.")
 
         except KeyboardInterrupt:
-            pass
+            output_log_cleanup(app_dirs)
+            sys.exit(2)
 
         finally:
             if self.changelog:
@@ -210,7 +213,8 @@ class FetchData:
                            "No new urls found! If output.log exists, please clear it.")
 
         except KeyboardInterrupt:
-            pass
+            output_log_cleanup(app_dirs)
+            sys.exit(2)
 
         finally:
             if self.changelog:
